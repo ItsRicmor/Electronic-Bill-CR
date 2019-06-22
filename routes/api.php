@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,4 +16,5 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'users'], function() {
     Route::post('/authenticate', 'AuthController@authenticate')->name('users.authenticate');
     Route::post('/signUp', 'AuthController@signUp')->name('users.signUp');
+    Route::get('/me', 'AuthController@me')->name('users.me');
 });
