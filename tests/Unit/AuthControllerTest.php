@@ -8,7 +8,7 @@ use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class UserTest extends TestCase
+class AuthControllerTest extends TestCase
 {
     use RefreshDatabase;
 
