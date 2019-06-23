@@ -38,15 +38,13 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), array(
             'email' => 'required|email',
-            'password' => 'required|min:8',
-            'name' => 'required|string'
+            'password' => 'required|min:8'
         ));
         if ($validator->fails()) {
             return response()->json(array('error' => 'invalid_fields', 'messages' => $validator->getMessageBag()), 400);
         }
         $user = new User(array(
             'password' => Hash::make($request->password),
-            'name' => $request->name,
             'email' => $request->email
         ));
         $user->save();
@@ -57,7 +55,7 @@ class AuthController extends Controller
     public function me()
     {
         $user = User::find(auth()->user()->id);
-        $user = $user->only(array('name', 'email'));
+        $user = $user->only(array('email'));
         return response()->json($user);
     }
 
@@ -77,7 +75,7 @@ class AuthController extends Controller
 
     protected function respondWithToken($token, User $user, $statusCode = 200)
     {
-        $user = $user->only(array('name', 'email'));
+        $user = $user->only(array('email'));
         return response()->json(array(
             'access_token' => $token,
             'token_type' => 'bearer',

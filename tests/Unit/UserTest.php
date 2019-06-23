@@ -2,12 +2,16 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Support\Facades\App;
 use Tests\TestCase;
 use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {
+    use RefreshDatabase;
+
     private static $jsonStructure = array(
         'access_token',
         'token_type',
@@ -38,7 +42,6 @@ class UserTest extends TestCase
     public function test_invalid_key_fields_create_user()
     {
         $data = array(
-            'nameWrongField' => $this->faker->name,
             'emailWrongField' => $this->faker->email,
             'passwordWrongField' => '12345678'
         );
@@ -74,7 +77,7 @@ class UserTest extends TestCase
     {
         $response = $this->apiAs('GET', route('users.me'));
         $response->assertStatus(200)
-            ->assertJsonStructure(array('name', 'email'));
+            ->assertJsonStructure(array('email'));
     }
 
     protected function apiAs($method, $uri, array $data = [], array $headers = [], $user = null)
@@ -91,7 +94,6 @@ class UserTest extends TestCase
     protected function createUser(string $email, string $password)
     {
         $data = array(
-            'name' => $this->faker->name,
             'email' => $email,
             'password' => $password
         );
