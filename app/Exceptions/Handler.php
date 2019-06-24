@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\api\InvalidCredentials;
+use App\Exceptions\api\UserAlreadyExists;
+use App\Exceptions\api\UserDoesNotExists;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class Handler extends ExceptionHandler
 {
@@ -29,7 +33,7 @@ class Handler extends ExceptionHandler
     /**
      * Report or log an exception.
      *
-     * @param  \Exception  $exception
+     * @param \Exception $exception
      * @return void
      */
     public function report(Exception $exception)
@@ -40,12 +44,24 @@ class Handler extends ExceptionHandler
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
+     * @param \Illuminate\Http\Request $request
+     * @param \Exception $exception
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof InvalidCredentials) {
+            return $exception->render($exception);
+        }
+        if ($exception instanceof UserDoesNotExists) {
+            return $exception->render($exception);
+        }
+        if ($exception instanceof UserAlreadyExists) {
+            return $exception->render($exception);
+        }
+        if ($exception instanceof JWTException) {
+            return response()->json(array('error' => true, 'message' => 'could_not_create_token'), 500);
+        }
         return parent::render($request, $exception);
     }
 }

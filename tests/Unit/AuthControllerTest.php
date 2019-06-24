@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Support\Facades\App;
 use Tests\TestCase;
 use App\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -15,11 +14,10 @@ class AuthControllerTest extends TestCase
     private static $jsonStructure = array(
         'access_token',
         'token_type',
-        'user',
         'expires_in'
     );
 
-    private static $errorStructure = array('error', 'messages');
+    private static $errorStructure = array('error', 'message');
 
     public function test_can_create_user()
     {
@@ -77,7 +75,7 @@ class AuthControllerTest extends TestCase
     {
         $response = $this->apiAs('GET', route('users.me'));
         $response->assertStatus(200)
-            ->assertJsonStructure(array('email'));
+            ->assertJsonStructure(array('email', 'emitter'));
     }
 
     protected function apiAs($method, $uri, array $data = [], array $headers = [], $user = null)
@@ -95,7 +93,20 @@ class AuthControllerTest extends TestCase
     {
         $data = array(
             'email' => $email,
-            'password' => $password
+            'password' => $password,
+            'contributor' => [
+                'name' => $this->faker->name,
+                'email' => $email,
+                'id_type' => '02',
+                'id_number' => '901110534',
+                'code_country' => '506',
+                'phone_number' => '85807271',
+                'fax_number' => '85807271'
+            ],
+            'emitter' => [
+                'certificate_file_name' => 'prueba.p12',
+                'certificate_password' => '12345'
+            ]
         );
         return $this->post(route('users.signUp'), $data);
     }

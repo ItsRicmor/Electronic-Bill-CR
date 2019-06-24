@@ -18,7 +18,8 @@ class CreateEmittersTable extends Migration
             $table->text('auth_token')->nullable();
             $table->string('certificate_file_name');
             $table->string('certificate_password');
-            $table->integer('tributor_id');
+            $table->integer('user_id');
+            $table->integer('contributor_id')->nullable();
             $table->timestamps();
         });
     }

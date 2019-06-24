@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b22c4c3ce8f6c077697a9084ae5455f0",
+    "content-hash": "066ae94a9287098d69f0bf9db0eeb410",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3050,6 +3050,48 @@
             "time": "2017-11-27T11:13:29+00:00"
         },
         {
+            "name": "troelskn/laravel-fillable-relations",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/troelskn/laravel-fillable-relations.git",
+                "reference": "88478196ae521ec28f7e4d38d8fffc5210a6227b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/troelskn/laravel-fillable-relations/zipball/88478196ae521ec28f7e4d38d8fffc5210a6227b",
+                "reference": "88478196ae521ec28f7e4d38d8fffc5210a6227b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "~5.3"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "orchestra/database": "~3.5",
+                "orchestra/testbench": "^3.5",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "LaravelFillableRelations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Troels Knak-Nielsen",
+                    "email": "troelskn@gmail.com"
+                }
+            ],
+            "description": "Provides HasFillableRelations trait to Eloquent models",
+            "time": "2019-02-13T22:37:20+00:00"
+        },
+        {
             "name": "tymon/jwt-auth",
             "version": "1.0.0-rc.4.1",
             "source": {
@@ -4951,7 +4993,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "troelskn/laravel-fillable-relations": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
